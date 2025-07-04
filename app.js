@@ -13,11 +13,10 @@
   </style>
 </head>
 <body>
-<p class="p1"><span class="s1">import React, { useState } from "https://esm.sh/react";</span></p>
-<p class="p1"><span class="s1">import ReactDOM from "https://esm.sh/react-dom";</span></p>
+<p class="p1"><span class="s1">const { useState } = React;</span></p>
 <p class="p2"><span class="s1"></span><br></p>
 <p class="p1"><span class="s1">function SmartOptionsApp() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const [rows, setRows] = useState([blankRow(), blankRow(), blankRow(), blankRow(), blankRow()]);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const [rows, setRows] = useState(new Array(5).fill(null).map(blankRow));</span></p>
 <p class="p2"><span class="s1"></span><br></p>
 <p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>function blankRow() {</span></p>
 <p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>return {</span></p>
@@ -114,41 +113,53 @@
 <p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>setRows(copy);</span></p>
 <p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
 <p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>return (</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div style={{ marginBottom: "10px" }}&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button onClick={generateIdentifiers}&gt;Generate Identifiers&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button onClick={addTopRows}&gt;Add 5 Rows at Top&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", fontWeight: "bold", marginBottom: "6px" }}&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div&gt;Date&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div&gt;Trade&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div&gt;Contract&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div&gt;Identifier&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div&gt;Amount&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div&gt;Premium&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div&gt;Status&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>{rows.map((row, i) =&gt; (</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>key={i}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>className={`card ${row.identifier === "Canceled" ? "canceled" : row.identifier?.startsWith("Option -") ? "option" : ""}`}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "4px" }}&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;input value={row.date} onChange={(e) =&gt; updateRow(i, "date", e.target.value)} /&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;input value={row.trade} onChange={(e) =&gt; updateRow(i, "trade", e.target.value)} /&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;input value={row.contract} onChange={(e) =&gt; updateRow(i, "contract", e.target.value)} /&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;{row.identifier}&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;{computeAmount(row)}&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;input value={row.premium} onChange={(e) =&gt; updateRow(i, "premium", e.target.value)} /&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;{row.status}&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>))}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>return React.createElement(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>"div",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ style: { padding: "1rem", fontFamily: "Arial, sans-serif" } },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>React.createElement("div", { style: { marginBottom: "1rem" } },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>React.createElement("button", { onClick: generateIdentifiers }, "Generate Identifiers"),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>React.createElement("button", { onClick: addTopRows, style: { marginLeft: "10px" } }, "Add 5 Rows at Top")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>React.createElement("div", {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>style: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>display: "grid",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>gridTemplateColumns: "repeat(7, 1fr)",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>fontWeight: "bold",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>marginBottom: "6px"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}, ["Date", "Trade", "Contract", "Identifier", "Amount", "Premium", "Status"].map((h, i) =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>React.createElement("div", { key: i }, h)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>)),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>rows.map((row, i) =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>React.createElement("div", {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>key: i,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>style: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>display: "grid",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>gridTemplateColumns: "repeat(7, 1fr)",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>gap: "4px",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>background: row.identifier === "Canceled" ? "#ffe5e5" :</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                      </span>row.identifier?.startsWith("Option -") ? "#fffbe5" : "#fff",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>opacity: row.identifier === "Canceled" ? 0.6 : 1,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>padding: "6px",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>marginBottom: "4px",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>borderRadius: "6px"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>React.createElement("input", { value: row.date, onChange: (e) =&gt; updateRow(i, "date", e.target.value) }),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>React.createElement("input", { value: row.trade, onChange: (e) =&gt; updateRow(i, "trade", e.target.value) }),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>React.createElement("input", { value: row.contract, onChange: (e) =&gt; updateRow(i, "contract", e.target.value) }),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>React.createElement("div", null, row.identifier),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>React.createElement("div", null, computeAmount(row)),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>React.createElement("input", { value: row.premium, onChange: (e) =&gt; updateRow(i, "premium", e.target.value) }),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>React.createElement("div", null, row.status)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>)</span></p>
 <p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>);</span></p>
 <p class="p1"><span class="s1">}</span></p>
 <p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">ReactDOM.render(&lt;SmartOptionsApp /&gt;, document.getElementById("root"));</span></p>
+<p class="p1"><span class="s1">ReactDOM.render(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>React.createElement(SmartOptionsApp),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById("root")</span></p>
+<p class="p1"><span class="s1">);</span></p>
 </body>
 </html>
